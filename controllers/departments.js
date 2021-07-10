@@ -1,29 +1,56 @@
-module.exports = (knex,departments) => {
+const departmentServices = {}
 
-    // get all departments data 
-    departments.get("/departments",(req,res) => {
-        knex("*").from("department")
-        .then((data)=> {
+departmentServices.departmentGetData = ((knex) => {
+    return knex("*").from("department")
+        .then((data) => {
             console.log(data)
-            res.send(data)
+            return data;
         })
         .catch((err) => {
             console.log(err)
-            res.send(err)
+            return err;
         })
-    })
+})
 
-    // get department by department_id
-    departments.get("/departments/:department_id",(req,res) => {
-        knex("*").from("department").where("department_id",req.params.department_id)
+departmentServices.departmentGetDataById = ((knex, req) => {
+    return knex("*").from("department").where("department_id", req.params.department_id)
         .then((data) => {
-            console.log(data)
-            res.send(data)
+            return data;
         })
         .catch((err) => {
-            console.log(data)
-            res.sned(data)
+            return err;
         })
-    })
-}
+})
+
+module.exports = departmentServices;
+
+
+// module.exports = (knex, departments) => {
+
+//     // get all departments data 
+//     departments.get("/departments", (req, res) => {
+//         knex("*").from("department")
+//             .then((data) => {
+//                 console.log(data)
+//                 res.send(data)
+//             })
+//             .catch((err) => {
+//                 console.log(err)
+//                 res.send(err)
+//             })
+//     })
+
+//     // get department by department_id
+//     departments.get("/departments/:department_id", (req, res) => {
+//         knex("*").from("department").where("department_id", req.params.department_id)
+//             .then((data) => {
+//                 console.log(data)
+//                 res.send(data)
+//             })
+//             .catch((err) => {
+//                 console.log(data)
+//                 res.sned(data)
+//             })
+//     })
+// }
 

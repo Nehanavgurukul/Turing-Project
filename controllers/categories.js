@@ -1,45 +1,57 @@
+const categoriesServices = {}
+
+// get all categories
+categoriesServices.categoriesGetData = ((knex) => {
+
+    return knex("*").from("category")
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => {
+            return err;
+        })
+})
 
 
-module.exports = (knex,categories) => {
-
-    // create api for get category
-    categories.get("/categories",(req,res) => {
-        knex("*").from("category")
+// get category by category_id
+categoriesServices.categoriesGetDataById = ((knex, req) => {
+    return knex("*").from("category").where("category_id", req.params.category_id)
         .then((data) => {
             console.log(data)
-            res.send(data)
+            return data;
         })
         .catch((err) => {
             console.log(err)
-            res.send(err)
+            return err;
         })
-    })
+})
 
 
-    // get category by category_id
-    categories.get("/categories/:category_id",(req,res) => {
-        knex("*").from("category").where("category_id",req.params.category_id)
-        .then((data) => {
-            console.log(data)
-            res.send(data)
-        })
-        .catch((err) => {
-            console.log(err)
-            res.send(err)
-        })
-    })
-
-    categories.get("/categories/inProduct/:product_id",(req,res) => {
-        knex("*").from("category")
+// get product by id .....
+categoriesServices.categories_inProduct_GetData_By_Id = ((knex, req) => {
+    return knex("*").from("category")
         .rightOuterJoin('product_category', 'category.category_id', 'product_category.category_id')
-        .where("product_id",req.params.product_id)
+        .where("product_id", req.params.product_id)
         .then((data) => {
             console.log(data)
-            res.send(data)
+            return data;
         })
         .catch((err) => {
             console.log(err)
-            res.send(err)
+            return err;
         })
-    })
-}
+})
+
+categoriesServices.categories_inDepartment_department_id = ((knex, req) => {
+    return knex("*").from("category")
+        .where("department_id", req.params.department_id)
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => {
+            return err;
+        })
+})
+
+
+module.exports = categoriesServices;

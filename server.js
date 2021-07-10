@@ -1,14 +1,28 @@
-const routers = require("./routes/paths");
 const express = require("express");
+const knex = require("./database/connection");
 const app = express();
+
+
+
 require("dotenv").config()
-const MY_PORT = process.env.PORT
+const my_port = process.env.PORT
+
+
+
+const router = express.Router();
+require("./routes/categories")(knex, router);
+require("./routes/department")(knex, router);
+require("./routes/attributes")(knex, router)
+
+
 
 app.use(express.json())
+app.use(router)
 
-app.use(routers)
-app.listen(MY_PORT,()=> {
-    console.log(`server is running on ${MY_PORT}`)
+
+
+app.listen(my_port, () => {
+    console.log(`server is running on ${my_port}`)
 });
 
 
