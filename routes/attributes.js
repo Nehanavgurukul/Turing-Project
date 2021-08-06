@@ -11,13 +11,33 @@ module.exports = (knex, attributes) => {
             })
     }),
 
-    attributes.get("/attribue/:attribute_id",(req,res) => {
-        attributesData.getAttributes_By_Id(knex,req)
+        attributes.get("/attribute/:attribute_id", (req, res) => {
+            attributesData.getAttributes_By_Id(knex, req)
+                .then((data) => {
+                    res.send(data)
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
+        })
+        ,
+        attributes.get("/attribute/value/:attribute_id", (req, res) => {
+            attributesData.getDataFromAttributeValue(knex, req)
+                .then((data) => {
+                    res.send(data)
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
+        }),
+
+        attributes.get("/attribute/inProduct/:product_id", (req, res) => {
+            attributesData.getDataFromAllAttributesByProduct_id(knex, req)
             .then((data) => {
-                res.send(data)
+                res.status(200).send(data)
             })
-            .catch((err) => {
-                res.send(err)
+            .catch((err) =>{
+                res.send(err);
             })
-    })
+        })
 }

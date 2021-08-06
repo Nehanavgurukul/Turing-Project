@@ -22,6 +22,8 @@ module.exports = (knex, categories) => {
                     res.send(err)
                 })
         }),
+
+
         categories.get("/categories/inProduct/:product_id", (req, res) => {
             categories_services.categories_inProduct_GetData_By_Id(knex, req)
                 .then((data) => {
@@ -33,6 +35,8 @@ module.exports = (knex, categories) => {
                     res.send(err)
                 })
         }),
+
+
         categories.get("/categories/inDepartment/:department_id", (req, res) => {
             categories_services.categories_inDepartment_department_id(knex, req)
                 .then((data) => {

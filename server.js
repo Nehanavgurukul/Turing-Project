@@ -12,7 +12,8 @@ const my_port = process.env.PORT
 const router = express.Router();
 require("./routes/categories")(knex, router);
 require("./routes/department")(knex, router);
-require("./routes/attributes")(knex, router)
+require("./routes/attributes")(knex, router);   
+require("./routes/products")(knex, router);
 
 
 

@@ -1,3 +1,7 @@
 # theory of turing
 
 node_modules
+
+.env
+
+
