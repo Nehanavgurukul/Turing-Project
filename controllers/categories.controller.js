@@ -30,6 +30,7 @@ categoriesServices.categoriesGetDataById = ((knex, req) => {
 // get product by id .....
 categoriesServices.categories_inProduct_GetData_By_Id = ((knex, req) => {
     return knex("*").from("category")
+        .select("category.category_id", "category.department_id","category.name")
         .rightOuterJoin('product_category', 'category.category_id', 'product_category.category_id')
         .where("product_id", req.params.product_id)
         .then((data) => {

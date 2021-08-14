@@ -1,4 +1,4 @@
-const attributesData = require("../controllers/attributes")
+const attributesData = require("../controllers/attributes.controller")
 
 module.exports = (knex, attributes) => {
     attributes.get("/attributes", (req, res) => {
@@ -14,7 +14,7 @@ module.exports = (knex, attributes) => {
         attributes.get("/attribute/:attribute_id", (req, res) => {
             attributesData.getAttributes_By_Id(knex, req)
                 .then((data) => {
-                    res.send(data)
+                    res.send(data[0])
                 })
                 .catch((err) => {
                     res.send(err)

@@ -32,12 +32,10 @@ Attributes.getDataFromAttributeValue = ((knex, req) => {
     return knex.select("attribute_value_id", "value")
         .from("attribute_value")
         .where("attribute_id", req.params.attribute_id)
-        .then(
-            data => {
-                return data
+        .then(data => {
+                return data;
             }
-        ).catch(
-            err => {
+        ).catch(err => {
                 return err;
             }
         )

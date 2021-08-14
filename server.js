@@ -1,5 +1,5 @@
 const express = require("express");
-const knex = require("./database/connection");
+const knex = require("./connectionDB/connection");
 const app = express();
 
 
@@ -10,10 +10,11 @@ const my_port = process.env.PORT
 
 
 const router = express.Router();
-require("./routes/categories")(knex, router);
 require("./routes/department")(knex, router);
+require("./routes/categories")(knex, router);
 require("./routes/attributes")(knex, router);   
 require("./routes/products")(knex, router);
+require("./routes/customer")(knex, router);
 
 
 

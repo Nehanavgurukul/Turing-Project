@@ -1,12 +1,11 @@
-var categories_services = require("../controllers/categories")
+var categories_services = require("../controllers/categories.controller")
 
 
 module.exports = (knex, categories) => {
     categories.get("/categories", (req, res) => {
         categories_services.categoriesGetData(knex)
             .then((data) => {
-                console.log(data)
-                res.send(data)
+                res.status(200).json(data);
             })
             .catch((err) => {
                 res.send(err)
