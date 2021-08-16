@@ -24,8 +24,9 @@ app.use(router)
 
 
 app.listen(my_port, () => {
-    console.log(`server is running on ${my_port}`)
+    console.log(`server is running on  port no ${my_port}`)
 });
+
 
 
 
