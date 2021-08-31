@@ -1,15 +1,18 @@
 const mysql = require("mysql");
+require("dotenv").config();
+
 
 const knex = require('knex')({
     client : "mysql",
     connection : ({
-        host : "localhost",
+        host : process.env.DATABASE_HOST,
         user : "root",
-        password : "Neha@1234",
-        database : "tshirtshop"
+        password : process.env.PASSWORD,
+        database : process.env.DATABASE
     })
-});
+})
+console.log("db connection successfully !")
 
-console.log("connection created..")
+
 module.exports = knex;
 

@@ -1,7 +1,8 @@
 const express = require("express");
 const knex = require("./connectionDB/connection");
 const app = express();
-
+const bodyparser = require('body-parser');
+app.use(bodyparser.json());
 
 
 require("dotenv").config()
@@ -14,10 +15,10 @@ require("./routes/department")(knex, router);
 require("./routes/categories")(knex, router);
 require("./routes/attributes")(knex, router);   
 require("./routes/products")(knex, router);
-require("./routes/customer")(knex, router);
 
 
 
+app.use('/', require('./routes'))
 app.use(express.json())
 app.use(router)
 
