@@ -82,7 +82,7 @@ const updateCustomerDetialsById = async (req, res, next) => {
     let id = req.params.customer_id;
     try {
         let result = await knex.from('customer').update({ name: name, email: email, password: password }).where('customer_id', id);
-        if (!result) {
+        if (result.length == 0 ) {
             return res.status(404).json({
                 message: "page not found!"
             })
@@ -105,7 +105,7 @@ const updateAddressById = async (req, res) => {
     let id = req.params.customer_id;
     try {
         let result = await knex.from('customer').update({ country: country, region: region, city: city }).where('customer_id', id);
-        if (!result) {
+        if (result.length == 0) {
             return res.status(404).json({
                 message: "page not found! || Id Not Exist!"
             })
@@ -129,7 +129,8 @@ const updateCreditCardById = async (req, res) => {
     let id = req.params.customer_id;
     try {
         let result = await knex.from('customer').update({ credit_card:credit_card}).where('customer_id', id);
-        if (!result) {
+        console.log(result,"kkkk")
+        if (result.length == 0) {
             return res.status(404).json({
                 message: "page not found! || Id Not Exist!"
             })
