@@ -36,11 +36,28 @@ const customerRegister = async (req, res) => {
 
 
 const customerLogin = async (req, res) => {
+
+    // router.post('/customers/login', (req, res) => {
+    //     knex
+    //     .select('*').from('customer').where('email', req.body.email) 
+    //     .then((data) => {
+    //         if (data[0].password == req.body.password) {        
+    //             var token = jwt.sign({...data}, 'anmol', {expiresIn: '24h'})
+    //             res.cookie('token', token)
+    //             res.send({message: 'login successfully'})   
+    //         } else { 
+    //             res.send({message: 'please check the passsword'})
+    //         }
+    //     })          
+    //     .catch((err) => {
+    //         res.send({err : err.message});
+    //     })
+    // })
     try {
         await knex.from('customer').select('*').where('email', req.body.email).where('password', req.body.password)
             .then((data) => {
                 console.log(data,"hhhh")
-                if (Object.keys(data).length == 0) {
+                if (data[0].length == 0) {
                     return res.status(404).json({
                         message: 'Invalid email or password !',
                         status: 404
@@ -129,7 +146,7 @@ const updateAddressById = async (req, res) => {
     } catch (err) {
         console.log(err)
         return res.status(500).json({
-            message: 'Internal server error...!',
+            message: 'Internal server error!',
             error: err
         })
     }
@@ -137,49 +154,12 @@ const updateAddressById = async (req, res) => {
 
 
 const updateCreditCardById = async (req, res) => {
-    // let credit_card = req.body.credit_card;
-    // let id = req.params.customer_id;
-    // try {
-    //     let result = await knex.from('customer').update({ credit_card:credit_card}).where('customer_id', id);
-    //     console.log(result,"kkkk")
-    //     if (result.length == 0) {
-    //         return res.status(404).json({
-    //             message: "page not found! || Id Not Exist!"
-    //         })
-    //     }
-    //     return res.status(200).json({
-    //         message: "Credit-Card Updated !",
-    //         status: 200
-    //     })
-    // } catch (err) {
-    //     return res.status(500).json({
-    //         message: 'Internal server error...!',
-    //         error: err
-    //     })
-    // }
-
     let credit_card = req.body.credit_card;
     let id = req.params.customer_id;
+    console.log(credit_card)
     try {
-        // let result = await knex('customer').where('email', req.body.email)
-        // .update({
-        //     credit_card: req.body.credit_card,
-        //     address_1: req.body.address_1,
-        //     address_2: req.body.address_2,
-        //     city: req.body.city,
-        //     region: req.body.region,
-        //     postal_code: req.body.postal_code,
-        //     country: req.body.country,
-        //     shipping_region_id: req.body.shipping_region_id,
-        //     day_phone: req.body.day_phone,
-        //     eve_phone: req.body.eve_phone,
-        //     mob_phone: req.body.mob_phone
-        // })
-        const { name } = req.body;
-        let result = await knex("client")
-            .update({ name })
-            .where({ id })
-        console.log(result, "kkkk")
+        let result = await knex.from('customer').update({ credit_card:credit_card}).where('customer_id', id);
+        console.log(result,"kkkk")
         if (result.length == 0) {
             return res.status(404).json({
                 message: "page not found! || Id Not Exist!"
@@ -195,6 +175,44 @@ const updateCreditCardById = async (req, res) => {
             error: err
         })
     }
+
+    // let credit_card = req.body.credit_card;
+    // let id = req.params.customer_id;
+    // try {
+    //     // let result = await knex('customer').where('email', req.body.email)
+    //     // .update({
+    //     //     credit_card: req.body.credit_card,
+    //     //     address_1: req.body.address_1,
+    //     //     address_2: req.body.address_2,
+    //     //     city: req.body.city,
+    //     //     region: req.body.region,
+    //     //     postal_code: req.body.postal_code,
+    //     //     country: req.body.country,
+    //     //     shipping_region_id: req.body.shipping_region_id,
+    //     //     day_phone: req.body.day_phone,
+    //     //     eve_phone: req.body.eve_phone,
+    //     //     mob_phone: req.body.mob_phone
+    //     // })
+    //     const { name } = req.body;
+    //     let result = await knex("client")
+    //         .update({ name })
+    //         .where({ id })
+    //     console.log(result, "kkkk")
+    //     if (result.length == 0) {
+    //         return res.status(404).json({
+    //             message: "page not found! || Id Not Exist!"
+    //         })
+    //     }
+    //     return res.status(200).json({
+    //         message: "Credit-Card Updated !",
+    //         status: 200
+    //     })
+    // } catch (err) {
+    //     return res.status(500).json({
+    //         message: 'Internal server error...!',
+    //         error: err
+    //     })
+    // }
 
 }
 
